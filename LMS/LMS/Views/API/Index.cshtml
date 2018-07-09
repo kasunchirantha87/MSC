@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+@*<script src="~/Scripts/angular-route.min.js"></script>*@
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+
+
+<script src="~/ScriptsNG/Module/APIModule.js"></script>
+<script src="~/ScriptsNG/Service/APIService.js"></script>
+<script src="~/ScriptsNG/Controller/APIController.js"></script>
+<script src="~/Content/sweetalert.js"></script>
+<div ng-app="app" ng-controller="APIController">
+    <div class="container-fluid mid-section">
+        <!--page starts-->
+        <div class="page-caption">
+            <h3>API Details</h3>
+            <hr />
+        </div>
+        <div class="container">
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">Category</span>
+                        <select id="CategoryID" class="form-control" ng-model="CategoryID"
+                                ng-options="category.CategoryName for category in categoryList track by category.CategoryID">
+                            <option value="">- Please Select -</option>
+                        </select>
+                        <span class="input-group-addon" id="validate_CategoryID"></span>
+                    </div>
+                </div>
+            </div>
+                    <div class="container bottom-clock">
+                        <div class="col-sm-6">
+                            <button ng-click="LoadApiList()" class="btn btn-primary fine-sub-btn">Save</button>
+                        </div>
+                    </div>                
+            </div>
+    </div>
+</div>

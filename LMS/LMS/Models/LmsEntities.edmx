@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ISBN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Author" Type="nvarchar" MaxLength="200" />
+          <Property Name="Language" Type="nvarchar" MaxLength="5" />
+          <Property Name="PurchaseDate" Type="datetime" />
+          <Property Name="ImageLink" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsIssued" Type="bit" Nullable="false" />
+          <Property Name="CategoryID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Lend">
+          <Key>
+            <PropertyRef Name="LendD" />
+          </Key>
+          <Property Name="LendD" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Borrower" Type="nvarchar" MaxLength="100" />
+          <Property Name="LendDate" Type="datetime" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="LendBook">
+          <Key>
+            <PropertyRef Name="LendBookID" />
+          </Key>
+          <Property Name="LendBookID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LendID" Type="uniqueidentifier" />
+          <Property Name="BookID" Type="uniqueidentifier" />
+          <Property Name="SubmittedDate" Type="datetime" />
+          <Property Name="IsSubmit" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Book_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LendBook_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="LendBook" Type="Self.LendBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="LendBook">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LendBook_Lend">
+          <End Role="Lend" Type="Self.Lend" Multiplicity="0..1" />
+          <End Role="LendBook" Type="Self.LendBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lend">
+              <PropertyRef Name="LendD" />
+            </Principal>
+            <Dependent Role="LendBook">
+              <PropertyRef Name="LendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LMSModelStoreContainer">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lend" EntityType="Self.Lend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LendBook" EntityType="Self.LendBook" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Book_Category" Association="Self.FK_Book_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LendBook_Book" Association="Self.FK_LendBook_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="LendBook" EntitySet="LendBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LendBook_Lend" Association="Self.FK_LendBook_Lend">
+            <End Role="Lend" EntitySet="Lend" />
+            <End Role="LendBook" EntitySet="LendBook" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="Guid" Nullable="false" />
+          <Property Name="BookName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
+          <Property Name="ImageLink" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsIssued" Type="Boolean" Nullable="false" />
+          <Property Name="CategoryID" Type="Guid" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Book_Category" FromRole="Book" ToRole="Category" />
+          <NavigationProperty Name="LendBooks" Relationship="Self.FK_LendBook_Book" FromRole="Book" ToRole="LendBook" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Guid" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Book_Category" FromRole="Category" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Lend">
+          <Key>
+            <PropertyRef Name="LendD" />
+          </Key>
+          <Property Name="LendD" Type="Guid" Nullable="false" />
+          <Property Name="Borrower" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LendDate" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LendBooks" Relationship="Self.FK_LendBook_Lend" FromRole="Lend" ToRole="LendBook" />
+        </EntityType>
+        <EntityType Name="LendBook">
+          <Key>
+            <PropertyRef Name="LendBookID" />
+          </Key>
+          <Property Name="LendBookID" Type="Guid" Nullable="false" />
+          <Property Name="LendID" Type="Guid" />
+          <Property Name="BookID" Type="Guid" />
+          <Property Name="SubmittedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsSubmit" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_LendBook_Book" FromRole="LendBook" ToRole="Book" />
+          <NavigationProperty Name="Lend" Relationship="Self.FK_LendBook_Lend" FromRole="LendBook" ToRole="Lend" />
+        </EntityType>
+        <Association Name="FK_Book_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LendBook_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="LendBook" Type="Self.LendBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="LendBook">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LendBook_Lend">
+          <End Role="Lend" Type="Self.Lend" Multiplicity="0..1" />
+          <End Role="LendBook" Type="Self.LendBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lend">
+              <PropertyRef Name="LendD" />
+            </Principal>
+            <Dependent Role="LendBook">
+              <PropertyRef Name="LendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Lends" EntityType="Self.Lend" />
+          <EntitySet Name="LendBooks" EntityType="Self.LendBook" />
+          <AssociationSet Name="FK_Book_Category" Association="Self.FK_Book_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LendBook_Book" Association="Self.FK_LendBook_Book">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="LendBook" EntitySet="LendBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LendBook_Lend" Association="Self.FK_LendBook_Lend">
+            <End Role="Lend" EntitySet="Lends" />
+            <End Role="LendBook" EntitySet="LendBooks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="LMSModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsIssued" ColumnName="IsIssued" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="LMSModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lends">
+            <EntityTypeMapping TypeName="LMSModel.Lend">
+              <MappingFragment StoreEntitySet="Lend">
+                <ScalarProperty Name="LendD" ColumnName="LendD" />
+                <ScalarProperty Name="Borrower" ColumnName="Borrower" />
+                <ScalarProperty Name="LendDate" ColumnName="LendDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LendBooks">
+            <EntityTypeMapping TypeName="LMSModel.LendBook">
+              <MappingFragment StoreEntitySet="LendBook">
+                <ScalarProperty Name="LendBookID" ColumnName="LendBookID" />
+                <ScalarProperty Name="LendID" ColumnName="LendID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="SubmittedDate" ColumnName="SubmittedDate" />
+                <ScalarProperty Name="IsSubmit" ColumnName="IsSubmit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

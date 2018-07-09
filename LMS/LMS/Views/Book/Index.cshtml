@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Book List";
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+@*<script src="~/Scripts/angular-route.min.js"></script>*@
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+
+<script src="~/ScriptsNG/Module/BookModule.js"></script>
+<script src="~/ScriptsNG/Service/BookService.js"></script>
+<script src="~/ScriptsNG/Controller/BookController.js"></script>
+<script src="~/Content/sweetalert.js"></script>
+
+<div ng-app="app" ng-controller="BookController" ng-init="LoadCategory()">
+    <div class="container-fluid mid-section">
+        <!--page starts-->
+        <div class="page-caption">
+            <h3>Add New Book</h3>
+            <hr />
+        </div>
+        <div class="container">
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">Book Name</span>
+                        <input type="text" class="form-control" id="BookName" ng-model="BookName" />
+                        <span class="input-group-addon" id="validate_BookName"></span>
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon">ISBN Number</span>
+                        <input type="text" class="form-control" ng-model="ISBN" id="ISBNNumber" />
+                        <span class="input-group-addon" id="validate_ISBNNumber"></span>
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon">Author Name</span>
+                        <input type="text" class="form-control" id="AuthorName" ng-model="Author" />
+                        <span class="input-group-addon" id="validate_AuthorName"></span>
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon">Language</span>
+                        <select id="Language" class="form-control" ng-model="Language">
+                            <option value="">- Please Select -</option>
+                            <option value="S">Sinhala</option>
+                            <option value="E">English</option>
+                            <option value="T">Tamil</option>
+                        </select>
+                        <span class="input-group-addon" id="validate_Language"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <span class="input-group-addon">Purchase Date</span>
+                            <input type='text' class="form-control" id="PurchaseDate" ng-model="PurchaseDate" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker1').datetimepicker({ format: 'YYYY-MM-DD', defaultDate: new Date() });
+                                    });
+                                </script>
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon">Category</span>
+                        <select id="CategoryID" class="form-control" ng-model="CategoryID"
+                                ng-options="category.CategoryName for category in categoryList track by category.CategoryID">
+                            <option value="">- Please Select -</option>
+                        </select>
+                        <span class="input-group-addon" id="validate_CategoryID"></span>
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon">Status</span>
+                        <select id="Language" class="form-control" ng-model="Status">
+                            <option value="">- Please Select -</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
+                        <span class="input-group-addon" id="validate_Status"></span>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="container bottom-clock">
+                <div class="col-sm-6">
+                    <button ng-click="saveBook()" class="btn btn-primary fine-sub-btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
