@@ -37,32 +37,73 @@
                     <div id="stkOvrFlw" class="tab-pane fade in active">
                         <div class="panel-body">
                             <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">User Name</span>
-                                    <input type="text" class="form-control" id="StckUserName" ng-model="StckUserName" />
-                                    <span class="input-group-addon" id="validate_StckUserName"></span>
-                                </div>
+
+                                <form class="form-inline">
+                                    <div class="form-group">
+
+                                        <input type="text" placeholder="StackOverflow User Id" class="form-control" ng-model="StckUserName">
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary " ng-click="LoadStackOverflowApiList()">Search</button>
+                                </form>
+
                             </div>
                         </div>
                         <div class="container bottom-clock">
                             <div class="col-sm-6">
-                                <button ng-click="LoadStackOverflowApiList()" class="btn btn-primary fine-sub-btn">View</button>
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-6 col-md-offset-3">
+                                <h2 ng-show="stackOverflowData.length==0">No Data Found</h2>
+                                <table class="table table-bordred table-striped" ng-hide="stackOverflowData.length==0">
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Value</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="data in stackOverflowData">
+                                            <td>{{data.key}}</td>
+                                            <td>{{data.value}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div id="Github" class="tab-pane fade">
                         <div class="panel-body">
                             <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">User Name</span>
-                                    <input type="text" class="form-control" id="GitUserName" ng-model="GitUserName" />
-                                    <span class="input-group-addon" id="validate_GitUserName"></span>
-                                </div>
+
+
+                                <form class="form-inline">
+                                    <div class="form-group">
+
+                                        <input type="text" placeholder="Github Username" class="form-control" ng-model="GitUserName">
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary " ng-click="LoadGitApiList()">Search</button>
+                                </form>
+
                             </div>
                         </div>
                         <div class="container bottom-clock">
-                            <div class="col-sm-6">
-                                <button ng-click="LoadGitApiList()" class="btn btn-primary fine-sub-btn">View</button>
+
+                            <div class="clearfix"></div>
+                            <div class="col-md-6 col-md-offset-3">
+                           
+                                <table class="table table-bordred table-striped" >
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Value</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="data in githubData">
+                                            <td>{{data.key}}</td>
+                                            <td>{{data.value}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -82,8 +123,8 @@
                             </div>
                         </div>
                     </div>
-                </div>                
-            </div>                                    
+                </div>
             </div>
+        </div>
     </div>
 </div>
