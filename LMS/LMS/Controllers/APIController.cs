@@ -22,7 +22,7 @@ namespace LMS.Controllers
             return View();
         }
 
-        public JsonResult getApiList()
+        public JsonResult getStackOverflowApiList()
         {
             using (_LMSEntities = new LMSEntities())
             {
@@ -55,5 +55,7 @@ namespace LMS.Controllers
             public string title { get; set; }
             public int answer_count { get; set; }
         }
+
+
     }
 }
