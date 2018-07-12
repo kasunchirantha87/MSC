@@ -28,22 +28,62 @@
         </div>
         <div class="container">
             <div class="panel-body">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon">Category</span>
-                        <select id="CategoryID" class="form-control" ng-model="CategoryID"
-                                ng-options="category.CategoryName for category in categoryList track by category.CategoryID">
-                            <option value="">- Please Select -</option>
-                        </select>
-                        <span class="input-group-addon" id="validate_CategoryID"></span>
-                    </div>
-                </div>
-            </div>
-                    <div class="container bottom-clock">
-                        <div class="col-sm-6">
-                            <button ng-click="LoadStackOverflowApiList()" class="btn btn-primary fine-sub-btn">Save</button>
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="pill" href="#stkOvrFlw">Stack Overflow</a></li>
+                    <li><a data-toggle="pill" href="#Github">GitHub</a></li>
+                    <li><a data-toggle="pill" href="#twitter">Twitter</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="stkOvrFlw" class="tab-pane fade in active">
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">User Name</span>
+                                    <input type="text" class="form-control" id="StckUserName" ng-model="StckUserName" />
+                                    <span class="input-group-addon" id="validate_StckUserName"></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>                
+                        <div class="container bottom-clock">
+                            <div class="col-sm-6">
+                                <button ng-click="LoadStackOverflowApiList()" class="btn btn-primary fine-sub-btn">View</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Github" class="tab-pane fade">
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">User Name</span>
+                                    <input type="text" class="form-control" id="GitUserName" ng-model="GitUserName" />
+                                    <span class="input-group-addon" id="validate_GitUserName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container bottom-clock">
+                            <div class="col-sm-6">
+                                <button ng-click="LoadGitApiList()" class="btn btn-primary fine-sub-btn">View</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="twitter" class="tab-pane fade">
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">User Name</span>
+                                    <input type="text" class="form-control" id="TwitterUserName" ng-model="TwitterUserName" />
+                                    <span class="input-group-addon" id="validate_TwitterUserName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container bottom-clock">
+                            <div class="col-sm-6">
+                                <button ng-click="LoadTwitterApiList()" class="btn btn-primary fine-sub-btn">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>                                    
             </div>
     </div>
 </div>

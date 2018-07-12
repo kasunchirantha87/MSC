@@ -22,40 +22,11 @@ namespace LMS.Controllers
             return View();
         }
 
-        public JsonResult getStackOverflowApiList()
+        public JsonResult GetStackOverflowApiList(string StackUser)
         {
-            using (_LMSEntities = new LMSEntities())
             {
-                SearchStackOverflow("CAT");
-
-                return Json(_LMSEntities.Categories.Select(c => new { CategoryName = c.CategoryName, CategoryID = c.CategoryID }).ToArray(),
-                    JsonRequestBehavior.AllowGet);
+                return Json("Sucsess");
             }
         }
-        static void SearchStackOverflow(string y)
-        {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://api.stackoverflow.com/1.1/search?intitle=" + Uri.EscapeDataString(y));
-            httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-            httpWebRequest.Method = "GET";
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            string responseText;
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                responseText = streamReader.ReadToEnd();
-            }
-            var result = (SearchResult)new JavaScriptSerializer().Deserialize(responseText, typeof(SearchResult));                     
-        }
-
-        class SearchResult
-        {
-            public List<Question> questions { get; set; }
-        }
-        class Question
-        {
-            public string title { get; set; }
-            public int answer_count { get; set; }
-        }
-
-
     }
 }
