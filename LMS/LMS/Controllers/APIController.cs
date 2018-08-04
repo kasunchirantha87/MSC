@@ -52,7 +52,7 @@ namespace LMS.Controllers
         public JsonResult GetTwitterDataByUsername(string TwitterUsername)
         {
             object twitterResponse = new object();
-            string requiredActionUrl = "users/lookup.json";
+            string requiredActionUrl = "users/show.json";
             var oAuthHeader = new TwitterApi(
                 ConfigurationData.TwitterConsumerKey,
                 ConfigurationData.TwitterConsumerSecret,
